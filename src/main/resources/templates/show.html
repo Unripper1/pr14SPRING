@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Show</title>
+</head>
+<body>
+<div th:each="building : ${buildings}">
+    <span th:text="${building.toString()}">user</span>
+    &nbsp;
+    <a th:href="@{/buildings/{id}(id=${building.getId()})}">delete</a>
+</div>
+<br/>
+<form action="/buildings/new" >
+       <button>Создать</button>
+</form>
+</body>
+</html>

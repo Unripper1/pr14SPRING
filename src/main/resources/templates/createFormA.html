@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New building</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/addresses}" th:object="${building}">
+    <label for="addressText">Enter addressText: </label>
+    <input type="text" th:field="*{addressText}" id="addressText"/>
+    <br/>
+    <br/>
+    <label for="zipCode">Enter zipCode: </label>
+    <input type="text" th:field="*{zipCode}" id="zipCode"/>
+    <br/>
+    <input type="submit" value="Create!"/>
+</form>
+
+</body>
+</html>
