@@ -1,12 +1,21 @@
 package com.code.jpr14.dao;
 import com.code.jpr14.Address;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@org.springframework.stereotype.Service
 public class AddressDAO {
+    @Autowired
+    SessionFactory sessionFactory;
+
+
+
+
     private static int ADDRESS_COUNT;
     private List<Address> addresses;
 
@@ -14,21 +23,31 @@ public class AddressDAO {
     {
         addresses = new ArrayList<Address>();
     }
+
+
+
     public void save(Address address){
-        address.setId( ADDRESS_COUNT);
-        ADDRESS_COUNT++;
-        addresses.add(address);
+        Session session= sessionFactory.openSession();
+        var transaction = session.beginTransaction();
+        session.saveOrUpdate(address);
+        transaction.commit();
+        session.close();
     }
-    public void del(int n){
-        addresses.remove(n);
-        for (Address a: addresses) {
-            if(a.getId()>n)
-                a.setId(a.getId()-1);
-        }
-        ADDRESS_COUNT--;
+    public void del(Long n){
+        Session session= sessionFactory.openSession();
+        var transaction = session.beginTransaction();
+        session.delete(session.get(Address.class, n));
+        transaction.commit();
+        session.close();
+
+
     }
 
     public List<Address> index() {
-        return addresses;
+        Session session= sessionFactory.openSession();
+        List a= session.createQuery("select u from Address u",
+                Address.class).getResultList();
+        return a;
+
     }
 }

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
+
 @Controller
 public class PRController {
 
@@ -43,7 +45,7 @@ class BDController {
     }
 
     @GetMapping("/{id}")
-    public String del(@PathVariable("id") int id) {
+    public String del(@PathVariable("id") int id) throws SQLException {
         buildingDAO.del(id);
         return "redirect:/buildings/show";
     }
@@ -78,7 +80,7 @@ class ADController {
     }
 
     @GetMapping("/{id}")
-    public String del(@PathVariable("id") int id) {
+    public String del(@PathVariable("id") Long id) {
         addressDAO.del(id);
         return "redirect:/addresses/show";
     }
