@@ -45,7 +45,7 @@ class BDController {
     }
 
     @GetMapping("/{id}")
-    public String del(@PathVariable("id") int id) throws SQLException {
+    public String del(@PathVariable("id") Long id) throws SQLException {
         buildingDAO.del(id);
         return "redirect:/buildings/show";
     }
